@@ -1,0 +1,31 @@
+server:
+  port: ${EUREKA_PORT:8761}
+  http2:
+    enabled: true
+
+spring:
+  application:
+    name: eureka
+  config:
+    import: optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888/}
+  cache:
+    type: caffeine
+
+eureka:
+  client:
+    registerWithEureka: ${EUREKA_REGISTER_CLIENT:false}
+    fetchRegistry: ${EUREKA_FETCH_REGISTRY:false}
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    com.netflix.eureka: ${EUREKA_LOG_LEVEL:OFF}
+    com.netflix.discovery: ${EUREKA_DISCOVERY_LOG_LEVEL:OFF}
